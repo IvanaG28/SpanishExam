@@ -1,0 +1,1748 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>UNLPE Escritura</title>
+  <meta name="description" content="Textos modelo para el examen escrito UNLPE ONU III B2-C1">
+  <meta name="theme-color" content="#1B4F72">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="UNLPE">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+  </style>
+  <style>
+/* ── Layout: full-screen landscape grid, sidebar + main ── */
+:root {
+  --bg:        #F7F6F3;
+  --surface:   #FFFFFF;
+  --border:    #E2DFDA;
+  --fg:        #1C1B18;
+  --fg2:       #5C5A54;
+  --accent:    #1B4F72;
+  --accent2:   #A93226;
+  --accent3:   #1E8449;
+  --tag-bg:    #EBF5FB;
+  --tag-fg:    #1B4F72;
+  --modal-bg:  rgba(28,27,24,0.55);
+  --shadow:    0 2px 12px rgba(0,0,0,0.10);
+  --radius:    10px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:       #18181A;
+    --surface:  #222226;
+    --border:   #35343A;
+    --fg:       #F0EFE8;
+    --fg2:      #9E9C94;
+    --accent:   #5DADE2;
+    --accent2:  #E74C3C;
+    --accent3:  #2ECC71;
+    --tag-bg:   #1A2A38;
+    --tag-fg:   #5DADE2;
+    --modal-bg: rgba(0,0,0,0.72);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg:       #18181A;
+  --surface:  #222226;
+  --border:   #35343A;
+  --fg:       #F0EFE8;
+  --fg2:      #9E9C94;
+  --accent:   #5DADE2;
+  --accent2:  #E74C3C;
+  --accent3:  #2ECC71;
+  --tag-bg:   #1A2A38;
+  --tag-fg:   #5DADE2;
+  --modal-bg: rgba(0,0,0,0.72);
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  overflow: hidden;
+}
+
+/* ── App shell — single column, topbar + scrollable main ── */
+#app {
+  display: grid;
+  grid-template-rows: 48px 1fr;
+  height: 100%;
+}
+
+/* ── Top bar ── */
+#topbar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 20px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+#topbar .logo {
+  font-family: 'Lora', Georgia, serif;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--accent);
+  letter-spacing: -0.2px;
+}
+#topbar .subtitle {
+  font-size: 11px;
+  color: var(--fg2);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+#topbar .sep { flex: 1; }
+#theme-btn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 12px;
+  color: var(--fg2);
+  cursor: pointer;
+  font-family: inherit;
+}
+#theme-btn:hover { background: var(--bg); }
+
+/* ── Main panel ── */
+#main {
+  overflow-y: auto;
+  padding: 20px 24px 32px;
+}
+
+/* ── Section group ── */
+.cat-section { margin-bottom: 28px; }
+.cat-section h3 {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--fg2);
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── Card grid ── */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
+  gap: 10px;
+}
+
+/* ── Individual card ── */
+.task-card {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 13px 14px 11px;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  text-align: left;
+}
+.task-card:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow);
+  transform: translateY(-1px);
+}
+.task-card .card-tag {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--tag-fg);
+  background: var(--tag-bg);
+  border-radius: 4px;
+  padding: 2px 6px;
+  width: fit-content;
+}
+.task-card .card-tag.red   { background: #FDEDEC; color: var(--accent2); }
+.task-card .card-tag.green { background: #EAFAF1; color: var(--accent3); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .task-card .card-tag.red   { background: #2D1A1A; }
+  :root:not([data-theme="light"]) .task-card .card-tag.green { background: #1A2D1F; }
+}
+:root[data-theme="dark"] .task-card .card-tag.red   { background: #2D1A1A; }
+:root[data-theme="dark"] .task-card .card-tag.green { background: #1A2D1F; }
+
+.task-card h4 {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--fg);
+  line-height: 1.3;
+}
+.task-card p {
+  font-size: 11.5px;
+  color: var(--fg2);
+  line-height: 1.4;
+}
+
+/* ── Modal ── */
+#modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--modal-bg);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  backdrop-filter: blur(3px);
+}
+#modal-overlay[hidden] { display: none; }
+#modal-box {
+  background: var(--surface);
+  border-radius: 14px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.28);
+  width: min(860px, 96vw);
+  max-height: 86vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+#modal-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+#modal-header .mh-text { flex: 1; }
+#modal-header .mh-tag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--tag-fg);
+  background: var(--tag-bg);
+  border-radius: 4px;
+  padding: 2px 7px;
+  margin-bottom: 4px;
+  display: inline-block;
+}
+#modal-title {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--fg);
+  line-height: 1.2;
+}
+#modal-desc {
+  font-size: 12px;
+  color: var(--fg2);
+  margin-top: 3px;
+}
+#modal-close {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  width: 32px; height: 32px;
+  font-size: 17px;
+  cursor: pointer;
+  color: var(--fg2);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-family: inherit;
+  line-height: 1;
+}
+#modal-close:hover { background: var(--border); }
+
+/* Tabs */
+#modal-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+  padding: 0 20px;
+  flex-shrink: 0;
+  overflow-x: auto;
+}
+.tab-btn {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 9px 14px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--fg2);
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: inherit;
+  margin-bottom: -1px;
+  transition: color 0.12s, border-color 0.12s;
+}
+.tab-btn:hover { color: var(--fg); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+
+/* Modal body */
+#modal-body {
+  overflow-y: auto;
+  padding: 20px 22px;
+  flex: 1;
+}
+#modal-body[hidden] { display: none; }
+
+.text-block {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 18px;
+  font-family: 'Lora', Georgia, serif;
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--fg);
+  white-space: pre-wrap;
+  position: relative;
+}
+.text-block .placeholder {
+  color: var(--accent);
+  font-style: italic;
+  font-weight: 600;
+}
+.text-block + .text-block { margin-top: 14px; }
+
+.block-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--fg2);
+  margin: 18px 0 6px;
+}
+.block-label:first-child { margin-top: 0; }
+
+.tip-box {
+  background: var(--tag-bg);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 6px 6px 0;
+  padding: 10px 14px;
+  font-size: 12.5px;
+  color: var(--fg);
+  line-height: 1.55;
+  margin-top: 14px;
+}
+
+.copy-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 4px;
+}
+.copy-btn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 12px;
+  font-size: 11.5px;
+  color: var(--fg2);
+  cursor: pointer;
+  font-family: inherit;
+}
+.copy-btn:hover { background: var(--border); }
+.copy-btn.copied { color: var(--accent3); border-color: var(--accent3); }
+
+/* Keyboard shortcut hint */
+#esc-hint {
+  position: fixed;
+  bottom: 12px;
+  right: 16px;
+  font-size: 11px;
+  color: var(--fg2);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 10px;
+  z-index: 200;
+  pointer-events: none;
+}
+#esc-hint[hidden] { display: none; }
+
+/* Responsive */
+@media (max-width: 600px) {
+  #main { padding: 12px 12px 24px; }
+  .cards-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <!-- Top bar -->
+  <div id="topbar">
+    <span class="logo">UNLPE</span>
+    <span class="subtitle">Expresión Escrita · ONU III</span>
+    <span class="sep"></span>
+    <button id="theme-btn" onclick="toggleTheme()">☀ / ☾</button>
+  </div>
+
+  <!-- Main grid -->
+  <div id="main">
+
+    <!-- Info strip -->
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:12px;color:var(--fg2)"><strong style="color:var(--fg)">Tarea 1</strong> · 225–250 palabras · 55 min</div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:12px;color:var(--fg2)"><strong style="color:var(--fg)">Tarea 2</strong> · 150–175 palabras · 35 min</div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:12px;color:var(--fg2)"><strong style="color:var(--fg)">Registro</strong> · Formal · Usted · Sin calcos</div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:12px;color:var(--fg2)"><span style="color:var(--accent);font-weight:600">[CORCHETES]</span> = datos a completar</div>
+    </div>
+
+    <!-- Tarea 1 -->
+    <div class="cat-section">
+      <h3>Tarea 1 — 225–250 palabras</h3>
+      <div class="cards-grid">
+        <div class="task-card" onclick="openTask('t1a')">
+          <span class="card-tag">T1A</span>
+          <h4>Resumen para boletín / convocatoria</h4>
+          <p>Texto informativo en 3ª persona</p>
+        </div>
+        <div class="task-card" onclick="openTask('t1b')">
+          <span class="card-tag">T1B</span>
+          <h4>Nota para colega + opinión</h4>
+          <p>Semiformal, resumen + punto de vista</p>
+        </div>
+        <div class="task-card" onclick="openTask('t1c')">
+          <span class="card-tag">T1C</span>
+          <h4>Circular informativa</h4>
+          <p>Impersonal, hechos + instrucciones</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tarea 2 -->
+    <div class="cat-section">
+      <h3>Tarea 2 — 150–175 palabras</h3>
+      <div class="cards-grid">
+        <div class="task-card" onclick="openTask('t2a')">
+          <span class="card-tag red">T2A</span>
+          <h4>Rechazar + proponer sustituto</h4>
+          <p>Correo formal de declinación</p>
+        </div>
+        <div class="task-card" onclick="openTask('t2b')">
+          <span class="card-tag red">T2B</span>
+          <h4>Recomendar a una persona</h4>
+          <p>Carta de recomendación</p>
+        </div>
+        <div class="task-card" onclick="openTask('t2c')">
+          <span class="card-tag red">T2C</span>
+          <h4>Solicitar incorporación a grupo</h4>
+          <p>Expresar interés y justificar candidatura</p>
+        </div>
+        <div class="task-card" onclick="openTask('t2d')">
+          <span class="card-tag red">T2D</span>
+          <h4>Solicitar adaptación especial</h4>
+          <p>Petición formal con justificación</p>
+        </div>
+        <div class="task-card" onclick="openTask('t2e')">
+          <span class="card-tag red">T2E</span>
+          <h4>Responder a queja / cancelación</h4>
+          <p>Disculpa + solución</p>
+        </div>
+        <div class="task-card" onclick="openTask('t2f')">
+          <span class="card-tag red">T2F</span>
+          <h4>Solicitar información</h4>
+          <p>Petición con contexto y agradecimiento</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Participación en curso -->
+    <div class="cat-section">
+      <h3>Participación en curso</h3>
+      <div class="cards-grid">
+        <div class="task-card" onclick="openTask('curso_aceptar')">
+          <span class="card-tag green">ACEPTAR</span>
+          <h4>Aceptar participación en curso</h4>
+          <p>5 razones estructuradas + gramática</p>
+        </div>
+        <div class="task-card" onclick="openTask('curso_rechazar')">
+          <span class="card-tag red">RECHAZAR</span>
+          <h4>Rechazar participación en curso</h4>
+          <p>Correo formal + variantes de motivo</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Correos temáticos -->
+    <div class="cat-section">
+      <h3>Correos y textos temáticos</h3>
+      <div class="cards-grid">
+        <div class="task-card" onclick="openTask('agradecimiento_jefe')">
+          <span class="card-tag">CORREO</span>
+          <h4>Gracias al jefe / equipo</h4>
+          <p>Reconocimiento + propuestas de mejora</p>
+        </div>
+        <div class="task-card" onclick="openTask('campana_donacion')">
+          <span class="card-tag">CIRCULAR</span>
+          <h4>Campaña / circular interna</h4>
+          <p>Texto persuasivo, llamada a la acción</p>
+        </div>
+        <div class="task-card" onclick="openTask('voluntariado')">
+          <span class="card-tag green">VOLUNTARIADO</span>
+          <h4>Postularse a voluntariado</h4>
+          <p>Carta de candidatura motivada</p>
+        </div>
+        <div class="task-card" onclick="openTask('vacante_resumen')">
+          <span class="card-tag">VACANTE</span>
+          <h4>Resumen de oferta de trabajo</h4>
+          <p>Boletín / convocatoria de empleo</p>
+        </div>
+        <div class="task-card" onclick="openTask('perfil_candidato')">
+          <span class="card-tag red">PERFIL</span>
+          <h4>Perfil del candidato ideal</h4>
+          <p>Panel de selección — subjuntivo clave</p>
+        </div>
+        <div class="task-card" onclick="openTask('grafico')">
+          <span class="card-tag green">GRÁFICO</span>
+          <h4>Comentario de gráfico</h4>
+          <p>Vocabulario completo + texto modelo</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Referencia rápida -->
+    <div class="cat-section">
+      <h3>Referencia rápida</h3>
+      <div class="cards-grid">
+        <div class="task-card" onclick="openTask('checklist')">
+          <span class="card-tag">CHECK</span>
+          <h4>Checklist antes de entregar</h4>
+          <p>7 puntos + errores frecuentes</p>
+        </div>
+        <div class="task-card" onclick="openTask('gramatica')">
+          <span class="card-tag">GRAM</span>
+          <h4>Estructuras gramaticales clave</h4>
+          <p>Indicativo vs subjuntivo + conectores</p>
+        </div>
+        <div class="task-card" onclick="openTask('verbos_prep')">
+          <span class="card-tag">VERBOS</span>
+          <h4>Verbos con preposición (93)</h4>
+          <p>CON · DE · EN · A — orden alfabético</p>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /main -->
+</div><!-- /app -->
+
+<!-- Modal -->
+<div id="modal-overlay" hidden onclick="closeIfBg(event)">
+  <div id="modal-box" role="dialog" aria-modal="true">
+    <div id="modal-header">
+      <div class="mh-text">
+        <div id="modal-tag" class="mh-tag">Tarea 1</div>
+        <div id="modal-title">Título</div>
+        <div id="modal-desc"></div>
+      </div>
+      <button id="modal-close" onclick="closeModal()" aria-label="Cerrar">✕</button>
+    </div>
+    <div id="modal-tabs"></div>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<div id="esc-hint" hidden>Esc para cerrar</div>
+
+<script>
+// ── Task data ─────────────────────────────────────────────────────────────
+
+const TASKS = {
+
+  // ═══ TAREA 1A ═══
+  t1a: {
+    tag: 'Tarea 1A', tagColor: 'blue',
+    title: 'Resumen para boletín / convocatoria de empleo',
+    desc: '225–250 palabras · Texto informativo en tercera persona',
+    tabs: [
+      { label: 'Texto modelo', key: 'texto' },
+      { label: 'Arquitectura', key: 'arq' },
+      { label: 'Consejos', key: 'tips' },
+    ],
+    texto: `[TITULAR] — Oportunidad en [ORGANISMO]: [PUESTO/TEMA]
+
+[ORGANISMO] ha publicado una convocatoria para cubrir la plaza de [PUESTO] en [LUGAR]. La organización desarrolla su labor principalmente en [ÁREA 1] y [ÁREA 2] y, en este contexto, apoya [INICIATIVA PRINCIPAL].
+
+La persona seleccionada se incorporará al equipo de [DEPARTAMENTO] y tendrá como principal responsabilidad [FUNCIÓN]. Además, colaborará con [EQUIPOS/SEDE] y deberá desempeñar sus funciones de acuerdo con [NORMAS/OBJETIVO].
+
+En cuanto al perfil, se requiere [FORMACIÓN] y un mínimo de [N] años de experiencia en [ÁREA]. Se valorará especialmente [EXPERIENCIA/COMPETENCIA]. El dominio de [IDIOMA 1] es imprescindible, mientras que [IDIOMA 2] constituye una ventaja. [CONDICIONES DEL PUESTO].
+
+En definitiva, se trata de una buena oportunidad para profesionales que deseen [BENEFICIO/OBJETIVO]. Las personas que cumplan los requisitos pueden presentar su candidatura [PLAZO/MEDIO].`,
+    arq: `ESTRUCTURA (225–250 palabras):
+
+① TITULAR — 1 línea
+  ↳ Nombre del puesto + organismo
+
+② PRESENTACIÓN DEL ORGANISMO — 2-3 frases
+  ↳ Qué hace + en qué contexto se inscribe la plaza
+
+③ FUNCIONES DEL PUESTO — 2-3 frases
+  ↳ Responsabilidad principal + colaboración + normas
+
+④ PERFIL REQUERIDO — 2-3 frases
+  ↳ Formación + experiencia + idiomas + condiciones
+
+⑤ CIERRE — 1-2 frases
+  ↳ A quién va dirigido + cómo postular
+
+NOTA: Reformula el texto original; no copies frases literales.`,
+    tips: `✦ Registro: tercera persona, tono impersonal ("se requiere", "se valorará")
+✦ Evita: "yo creo", apreciaciones personales, lenguaje demasiado comercial
+✦ Verbos útiles: desarrollar, apoyar, incorporarse, desempeñar, contribuir, fortalecer
+✦ No uses "hacer" o "tener" donde puedes usar: desempeñar, contar con, poseer, llevar a cabo
+✦ Conector de cierre seguro: "En definitiva, se trata de..."
+✦ Longitud: cuenta tus palabras antes de entregar; ni una por encima de 250`,
+  },
+
+  // ═══ TAREA 1B ═══
+  t1b: {
+    tag: 'Tarea 1B', tagColor: 'blue',
+    title: 'Nota para colega: resumen + opinión',
+    desc: '225–250 palabras · Tono semiformmal · Tú o usted según instrucción',
+    tabs: [
+      { label: 'Texto modelo', key: 'texto' },
+      { label: 'Arquitectura', key: 'arq' },
+      { label: 'Consejos', key: 'tips' },
+    ],
+    texto: `Para: [NOMBRE]
+Asunto: Resumen — [TÍTULO/TEMA]
+
+Como acordamos, te resumo los puntos más relevantes del texto sobre [TEMA].
+
+El texto señala que [IDEA 1]. Además, destaca que [IDEA 2] y hace hincapié en [ASPECTO CONCRETO]. Por último, advierte de que [RIESGO O CONCLUSIÓN DEL TEXTO].
+
+Desde mi punto de vista, [OPINIÓN PROPIA]. Considero que [ARGUMENTO PRINCIPAL] porque [RAZÓN]. Aunque [MATIZ O CONTRAPUNTO], creo que [TU POSICIÓN FINAL]. Por ello, sería conveniente que [PROPUESTA EN SUBJUNTIVO].
+
+Quedo a tu disposición si necesitas más información.
+
+Saludos,
+[NOMBRE]`,
+    arq: `ESTRUCTURA (225–250 palabras):
+
+① ENCABEZADO — Para / Asunto
+② INTRODUCCIÓN — 1 frase ("Como acordamos, te resumo...")
+③ RESUMEN — 3-4 ideas del texto (con conectores)
+  ↳ "señala que" / "destaca que" / "hace hincapié en" / "advierte de que"
+④ OPINIÓN — 3-4 frases
+  ↳ opinión + argumento + concesión + propuesta (subj.)
+⑤ CIERRE — 1 frase de cortesía`,
+    tips: `✦ Para el resumen: USA verbos de relato → señala, destaca, indica, afirma, subraya, advierte de que, hace hincapié en
+✦ Para la opinión: "Considero que..." + indicativo | "No creo que..." + subjuntivo
+✦ Concesión obligatoria: "Aunque [hecho real]..." + indicativo
+✦ Propuesta obligatoria: "Sería conveniente que + subjuntivo"
+✦ Evita: "el texto dice que", "el artículo habla sobre"
+✦ Registro: semiformal; si la consigna dice "colega", puedes usar tú`,
+  },
+
+  // ═══ TAREA 1C ═══
+  t1c: {
+    tag: 'Tarea 1C', tagColor: 'blue',
+    title: 'Circular informativa',
+    desc: '225–250 palabras · Tono formal e impersonal · Tercera persona',
+    tabs: [
+      { label: 'Texto modelo', key: 'texto' },
+      { label: 'Arquitectura', key: 'arq' },
+      { label: 'Consejos', key: 'tips' },
+    ],
+    texto: `CIRCULAR INFORMATIVA
+
+Para: Todo el personal de [SECCIÓN]
+Asunto: [TEMA]
+
+Se informa a todo el personal de [INFORMACIÓN PRINCIPAL]. Según [FUENTE], [IDEA 1]. Asimismo, [IDEA 2]. Cabe destacar que [DATO RELEVANTE], lo cual tiene implicaciones para [ÁREA].
+
+A la luz de lo anterior, [IDEA 3 / CONSECUENCIA]. Dado que [RAZÓN], resulta fundamental que [ACTUACIÓN EN SUBJUNTIVO].
+
+Por lo tanto, se recomienda [ACCIÓN] / se recomienda que [SUBJUNTIVO]. Las personas interesadas pueden [CONSULTAR / CONTACTAR / ACCEDER A…].
+
+Para cualquier consulta, no duden en ponerse en contacto con [PERSONA/DEPARTAMENTO].
+
+Atentamente,
+
+[NOMBRE Y CARGO]`,
+    arq: `ESTRUCTURA (225–250 palabras):
+
+① ENCABEZADO — Para / Asunto (o "CIRCULAR INFORMATIVA" como título)
+② INFORMACIÓN PRINCIPAL — 2-3 hechos extraídos del texto
+  ↳ Tono impersonal: "se informa", "cabe destacar", "se constata"
+③ IMPLICACIONES — qué significa para el destinatario
+④ RECOMENDACIÓN — "se recomienda que + subjuntivo"
+⑤ ACCIÓN / CONTACTO — dónde ir o a quién escribir
+⑥ DESPEDIDA — "Atentamente, [nombre y cargo]"`,
+    tips: `✦ Circular = hechos + instrucciones. NO incluyas opinión personal.
+✦ Impersonal: "se informa", "cabe señalar", "se recomienda", "se recuerda"
+✦ Conectores: Según [fuente] | Asimismo | Cabe destacar | Por lo tanto | A la luz de
+✦ Para la recomendación: "se recomienda que el personal [subjuntivo]"
+✦ Cierre: "Para cualquier consulta, no duden en ponerse en contacto con..."
+✦ Evita: "yo" / "nosotros opinamos" / lenguaje demasiado coloquial`,
+  },
+
+  // ═══ TAREA 2A ═══
+  t2a: {
+    tag: 'Tarea 2A', tagColor: 'red',
+    title: 'Rechazar invitación + proponer sustituto/a',
+    desc: '150–175 palabras · Correo formal',
+    tabs: [
+      { label: 'Texto modelo', key: 'texto' },
+      { label: 'Variante breve', key: 'variante' },
+      { label: 'Frases útiles', key: 'frases' },
+    ],
+    texto: `Asunto: Re: Invitación a [EVENTO]
+
+Estimada/o [NOMBRE]:
+
+Muchas gracias por haberme invitado a participar como [ROL] en [EVENTO]. Me parece una iniciativa muy valiosa, especialmente porque [RAZÓN BREVE].
+
+Sin embargo, debido a compromisos profesionales previos, me resulta imposible participar en las fechas indicadas. Lamento los inconvenientes que esto pueda ocasionar.
+
+Me gustaría proponer en mi lugar a [NOMBRE], [CARGO]. Cuenta con amplia experiencia en [ÁREA] y ha demostrado [CUALIDAD O LOGRO CONCRETO]. Estoy convencida de que su participación aportaría un valor importante al evento.
+
+Quedo a su disposición para facilitar cualquier información adicional.
+
+Atentamente,
+[NOMBRE]`,
+    variante: `Asunto: Re: Invitación a [EVENTO]
+
+Estimada/o [NOMBRE]:
+
+Le agradezco la invitación a participar en [EVENTO]. Lamentablemente, no me es posible asistir debido a [MOTIVO PROFESIONAL].
+
+En mi lugar, me permito proponer a [NOMBRE], [CARGO], quien cuenta con experiencia en [ÁREA] y estaría en condiciones de [CONTRIBUCIÓN].
+
+Quedo a su disposición para cualquier consulta.
+
+Atentamente,
+[NOMBRE]`,
+    frases: `RECHAZO CORTÉS:
+• "me resulta imposible participar en las fechas indicadas"
+• "lamentablemente, no me es posible asistir"
+• "lamento los inconvenientes que esto pueda ocasionar"
+• "debido a compromisos profesionales previos..."
+
+PROPONER SUSTITUTO:
+• "Me gustaría proponer en mi lugar a [NOMBRE]"
+• "Me permito sugerir a [NOMBRE], quien..."
+• "Estoy convencida de que su participación aportaría..."
+• "Cuenta con amplia experiencia en [ÁREA] y ha demostrado..."
+
+CIERRE:
+• "Quedo a su disposición para facilitar cualquier información adicional"
+• "No dude en ponerse en contacto conmigo si lo estima oportuno"`,
+  },
+
+  // ═══ TAREA 2B ═══
+  t2b: {
+    tag: 'Tarea 2B', tagColor: 'red',
+    title: 'Recomendar a una persona (becario/a, voluntario/a)',
+    desc: '150–175 palabras · Correo formal',
+    tabs: [
+      { label: 'Texto modelo', key: 'texto' },
+      { label: 'Frases útiles', key: 'frases' },
+    ],
+    texto: `Asunto: Recomendación — [NOMBRE DE LA PERSONA]
+
+Estimada/o [NOMBRE]:
+
+Me dirijo a usted para recomendar a [PERSONA] para [PUESTO/BECA/VOLUNTARIADO]. He trabajado con ella/él durante [PERÍODO] y considero que reúne un perfil muy adecuado para el puesto.
+
+Durante nuestra colaboración ha demostrado [CUALIDAD 1] y [CUALIDAD 2]. Además, su experiencia en [ÁREA] le ha permitido [EJEMPLO O RESULTADO CONCRETO]. Su conocimiento de [TEMA/HERRAMIENTA] sería especialmente útil para [OBJETIVO DEL PUESTO].
+
+Estoy convencida de que su incorporación supondría una aportación valiosa al equipo. No dude en ponerse en contacto conmigo si necesita más información.
+
+Atentamente,
+[NOMBRE Y CARGO]`,
+    frases: `PRESENTAR LA RECOMENDACIÓN:
+• "Me dirijo a usted para recomendar a [NOMBRE] para..."
+• "He trabajado con ella/él durante [X] y considero que..."
+• "Tengo el placer de recomendar a [NOMBRE], con quien colaboré en..."
+
+DESCRIBIR CUALIDADES:
+• "ha demostrado [cualidad] y [cualidad]"
+• "se ha mostrado especialmente capaz de..."
+• "su conocimiento de [X] le ha permitido..."
+• "cuenta con una sólida formación en..."
+
+VALORACIÓN FINAL:
+• "Estoy convencida de que su incorporación supondría..."
+• "No dude en ponerse en contacto conmigo si necesita más información"
+• "Quedo a su disposición para cualquier aclaración"`,
+  },
+
+  // ═══ TAREA 2C ═══
+  t2c: {
+    tag: 'Tarea 2C', tagColor: 'red',
+    title: 'Solicitar incorporación a grupo de trabajo',
+    desc: '150–175 palabras · Correo formal',
+    tabs: [
+      { label: 'Texto modelo', key: 'texto' },
+      { label: 'Frases útiles', key: 'frases' },
+    ],
+    texto: `Asunto: Solicitud de incorporación — [GRUPO/PROYECTO]
+
+Estimada/o [NOMBRE]:
+
+Me dirijo a usted para expresar mi interés en incorporarme a [GRUPO DE TRABAJO / EQUIPO]. Actualmente trabajo como [CARGO] en [SECCIÓN], donde me ocupo principalmente de [FUNCIONES PRINCIPALES].
+
+Considero que mi experiencia en [ÁREA], junto con mi conocimiento de [TEMA/HERRAMIENTA], me permitiría contribuir de forma efectiva a [OBJETIVO DEL GRUPO]. Además, me interesa especialmente [ASPECTO CONCRETO DEL MANDATO].
+
+Me gustaría que considerara mi candidatura. Quedo a su disposición para facilitar cualquier información o documentación adicional que estime necesaria.
+
+Atentamente,
+[NOMBRE Y CARGO]`,
+    frases: `PRESENTAR EL INTERÉS:
+• "Me dirijo a usted para expresar mi interés en incorporarme a..."
+• "Escribo para solicitar mi participación en..."
+• "Quisiera mostrar mi interés por formar parte de..."
+
+JUSTIFICAR LA CANDIDATURA:
+• "mi experiencia en [X] me permitiría contribuir a..."
+• "junto con mi conocimiento de [X]..."
+• "me interesa especialmente [aspecto del mandato]"
+• Recuerda: "buscamos a alguien que tenga..." → subjuntivo (no identificado)
+
+CIERRE:
+• "Quedo a su disposición para facilitar cualquier información adicional"
+• "No dude en contactarme si necesita más detalles sobre mi trayectoria"`,
+  },
+
+  // ═══ TAREA 2D ═══
+  t2d: {
+    tag: 'Tarea 2D', tagColor: 'red',
+    title: 'Solicitar adaptación / alojamiento especial',
+    desc: '150–175 palabras · Correo formal',
+    tabs: [
+      { label: 'Texto modelo', key: 'texto' },
+      { label: 'Frases útiles', key: 'frases' },
+    ],
+    texto: `Asunto: Solicitud de [ADAPTACIÓN]
+
+Estimada/o [NOMBRE]:
+
+Me dirijo a usted en relación con [ESTANCIA/MISIÓN/ACTIVIDAD]. Dado que [CIRCUNSTANCIA O NECESIDAD], quisiera solicitar [ADAPTACIÓN CONCRETA].
+
+Esta medida sería necesaria para [OBJETIVO] y me permitiría [BENEFICIO O RESULTADO]. En caso de que sea necesario aportar documentación adicional, estaré encantada de facilitarla.
+
+Le agradecería que considerara esta solicitud y quedo a su disposición para comentar cualquier alternativa que pudiera resultar adecuada.
+
+Muchas gracias de antemano por su atención.
+
+Atentamente,
+[NOMBRE]`,
+    frases: `ABRIR LA SOLICITUD:
+• "Me dirijo a usted en relación con..."
+• "Dado que [circunstancia], quisiera solicitar..."
+• "Le escribo para solicitar [adaptación concreta]"
+
+JUSTIFICAR:
+• "Esta medida sería necesaria para..."
+• "me permitiría desempeñar mis funciones con normalidad"
+• "En caso de que sea necesario aportar documentación..."
+
+CONDICIÓN + SUBJUNTIVO (gramática deliberada):
+• "En caso de que se requiera cualquier confirmación, no dude en..."
+• "Siempre que sea posible, agradecería que se tuviera en cuenta..."
+
+CIERRE:
+• "Muchas gracias de antemano por su atención"
+• "Quedo a su disposición para cualquier aclaración"`,
+  },
+
+  // ═══ TAREA 2E ═══
+  t2e: {
+    tag: 'Tarea 2E', tagColor: 'red',
+    title: 'Responder a una queja / cancelación',
+    desc: '150–175 palabras · Correo formal',
+    tabs: [
+      { label: 'Texto modelo', key: 'texto' },
+      { label: 'Frases útiles', key: 'frases' },
+      { label: 'Errores a evitar', key: 'errores' },
+    ],
+    texto: `Asunto: Re: [QUEJA/CANCELACIÓN]
+
+Estimada/o [NOMBRE]:
+
+Gracias por ponerse en contacto con nosotros. Lamentamos sinceramente los inconvenientes que le haya podido ocasionar [PROBLEMA].
+
+Tras revisar el caso, hemos comprobado que [EXPLICACIÓN OBJETIVA]. Por lo tanto, le proponemos [SOLUCIÓN CONCRETA]. Además, hemos adoptado las medidas necesarias para evitar que una situación similar vuelva a producirse.
+
+Esperamos que esta solución responda adecuadamente a sus necesidades. Si requiere alguna aclaración adicional, no dude en ponerse en contacto con nosotros.
+
+Atentamente,
+[NOMBRE Y CARGO]`,
+    frases: `ACUSAR RECIBO Y DISCULPARSE:
+• "Gracias por ponerse en contacto con nosotros"
+• "Lamentamos sinceramente los inconvenientes ocasionados"
+• "Entendemos su preocupación y nos disculpamos por las molestias"
+
+EXPLICAR:
+• "Tras revisar el caso, hemos comprobado que..."
+• "La situación se debió a [causa objetiva]"
+
+OFRECER SOLUCIÓN:
+• "Le proponemos [solución]"
+• "Hemos adoptado las medidas necesarias para evitar que..."
+• "En caso de que esta solución no resultara satisfactoria..."
+
+CIERRE:
+• "Esperamos que esta solución responda adecuadamente a sus necesidades"
+• "No dude en ponerse en contacto con nosotros si necesita más información"`,
+    errores: `FRANCISMOS / CALCOS A EVITAR (del correo de cancelación):
+
+✗ "no será disponible" → ✓ no estará disponible
+✗ "proponer de + infinitivo" → ✓ proponer + infinitivo (sin "de")
+✗ "gracias de su comprensión" → ✓ gracias por su comprensión
+✗ "por vuelta de correo" → ✓ a la mayor brevedad posible
+✗ "otra vez" (para lamentarse) → ✓ de nuevo / nuevamente
+✗ "nos excusamos" → ✓ pedimos disculpas / lamentamos
+
+TAMBIÉN:
+✗ "hacer" → ✓ adoptar medidas / llevar a cabo / realizar
+✗ "el correo dice" → ✓ la carta señala / el mensaje indica`,
+  },
+
+  // ═══ TAREA 2F ═══
+  t2f: {
+    tag: 'Tarea 2F', tagColor: 'red',
+    title: 'Solicitar información (+ agradecer)',
+    desc: '150–175 palabras · Correo formal',
+    tabs: [
+      { label: 'Texto modelo', key: 'texto' },
+      { label: 'Frases útiles', key: 'frases' },
+    ],
+    texto: `Asunto: Solicitud de información — [TEMA]
+
+Estimada/o [NOMBRE] / A quien corresponda:
+
+Me dirijo a usted en nombre de [SECCIÓN/ORGANISMO] para solicitar información sobre [TEMA]. En el marco de [PROYECTO/INICIATIVA], necesitamos datos relativos a [DETALLE 1] y [DETALLE 2] correspondientes a [PERÍODO].
+
+Asimismo, le agradeceríamos que, si fuera posible, nos facilitara [DOCUMENTACIÓN ADICIONAL]. Esta información sería de gran utilidad para [OBJETIVO CONCRETO].
+
+Somos conscientes del tiempo que requiere esta solicitud y le agradecemos de antemano su colaboración. Quedamos a su disposición para aclarar cualquier aspecto.
+
+Atentamente,
+[NOMBRE Y CARGO]`,
+    frases: `ABRIR LA SOLICITUD:
+• "Me dirijo a usted para solicitar información sobre..."
+• "Le escribo en nombre de [sección] para..."
+• "En el marco de [proyecto], necesitamos..."
+
+DETALLAR LA PETICIÓN:
+• "datos relativos a [X] y [Y] correspondientes a [período]"
+• "le agradeceríamos que nos facilitara [documento]"
+• Condicional de cortesía: "le agradeceríamos que, si fuera posible, nos..."
+
+AGRADECER:
+• "Somos conscientes del tiempo que requiere esta solicitud"
+• "Le agradecemos de antemano su colaboración"
+• "Quedamos a su disposición para aclarar cualquier aspecto"`,
+  },
+
+  // ═══ CURSO: ACEPTAR ═══
+  curso_aceptar: {
+    tag: 'Tarea Oral 1 / Escrita', tagColor: 'green',
+    title: 'Aceptar participación en un curso',
+    desc: 'Texto completo (basado en tu respuesta real) · Estructura clara con conectores',
+    tabs: [
+      { label: 'Texto modelo', key: 'texto' },
+      { label: 'Arquitectura', key: 'arq' },
+    ],
+    texto: `Sí, me interesaría participar en este curso por varias razones.
+
+En primer lugar, tengo una licenciatura en Relaciones Internacionales, por lo que los temas relacionados con el desarrollo, la cooperación internacional y las desigualdades siempre me han interesado. Sin embargo, reconozco que me faltan conocimientos específicos sobre [REGIÓN/TEMA], ya que durante mis estudios me centré más en otras áreas. Por eso, este curso sería una buena oportunidad para ampliar mis conocimientos y comprender mejor la realidad de [TEMA].
+
+Además, considero que [TEMA DEL CURSO] es especialmente relevante a nivel internacional. Como se señala en el anuncio, puede tener consecuencias [TIPO]. Por lo tanto, me parece fundamental que los responsables de la toma de decisiones cuenten con los conocimientos necesarios para desarrollar políticas más eficaces.
+
+También me interesa especialmente que el curso no se limite a presentar conocimientos teóricos, sino que incluya [ELEMENTO PRÁCTICO O DIFERENCIADOR]. Creo que este enfoque permitiría comprender mejor las diferentes realidades y conocer soluciones que ya se están aplicando.
+
+Asimismo, la relación del curso con [MARCO DE REFERENCIA, ej. Agenda 2030, ODS] es un aspecto que valoro positivamente. En mi opinión, para [OBJETIVO] no basta con identificar los problemas, sino que también es necesario analizar qué políticas funcionan y cómo pueden ponerse en práctica.
+
+Por último, [ELEMENTO PRÁCTICO, ej. el formato en línea] me parece una ventaja, ya que sería más fácil compaginarlo con mis responsabilidades profesionales. Si tuviera la oportunidad de participar, intentaría aprovechar especialmente [ASPECTO CONCRETO].
+
+En definitiva, sí me gustaría realizar este curso porque me permitiría complementar mi formación con conocimientos más específicos sobre [TEMA]. Además, creo que sería una excelente oportunidad para conocer diferentes perspectivas y comprender mejor cómo abordar [PROBLEMA].`,
+    arq: `ESTRUCTURA (para Tarea Oral 1 o escrita):
+
+① AFIRMACIÓN + ANTICIPO — "Sí, me interesaría... por varias razones"
+② RAZÓN 1 — vínculo con tu formación/experiencia + laguna que quieres cubrir
+③ RAZÓN 2 — relevancia del tema a nivel institucional/internacional
+④ RAZÓN 3 — aspecto diferenciador del curso (metodología, participantes, etc.)
+⑤ RAZÓN 4 — marco de referencia (ODS, Agenda 2030, mandato ONU)
+⑥ RAZÓN PRÁCTICA — formato, duración, compatibilidad con el trabajo
+⑦ CONCLUSIÓN — "En definitiva, sí me gustaría participar porque..."
+
+GRAMÁTICA DELIBERADA A INCLUIR:
+• Concesión: "Sin embargo, reconozco que..."
+• Restricción: "no se limite a... sino que + subjuntivo"
+• Valoración: "me parece fundamental que + subjuntivo"
+• Hipótesis: "Si tuviera la oportunidad, intentaría..."`,
+  },
+
+  // ═══ CURSO: RECHAZAR ═══
+  curso_rechazar: {
+    tag: 'Tarea 2A / Escrita', tagColor: 'red',
+    title: 'Rechazar participación en un curso',
+    desc: '150–175 palabras · Correo formal con propuesta de solución',
+    tabs: [
+      { label: 'Texto modelo', key: 'texto' },
+      { label: 'Variantes de rechazo', key: 'variantes' },
+    ],
+    texto: `Asunto: Re: Invitación a [NOMBRE DEL CURSO]
+
+Estimada/o [NOMBRE]:
+
+Muchas gracias por haberme invitado a participar en [NOMBRE DEL CURSO]. Me parece una iniciativa muy valiosa, especialmente porque [RAZÓN POR LA QUE EL CURSO ES IMPORTANTE].
+
+Sin embargo, lamentablemente no me será posible participar en la edición prevista, ya que [MOTIVO: compromisos profesionales previos / carga de trabajo / conflicto de agenda]. Lamento no poder aprovechar esta oportunidad en esta ocasión.
+
+No obstante, me gustaría proponer en mi lugar a [NOMBRE], [CARGO], quien cuenta con experiencia en [ÁREA] y estaría en condiciones de beneficiarse enormemente de este programa. Asimismo, si el curso se repite en el futuro, estaría encantada de participar.
+
+Quedo a su disposición para cualquier consulta adicional.
+
+Atentamente,
+[NOMBRE]`,
+    variantes: `MOTIVOS DE RECHAZO (elige el que se ajuste a la consigna):
+• "debido a compromisos profesionales previos"
+• "por un conflicto de agenda que no me es posible modificar"
+• "dado que coincide con [evento/misión] ya programado"
+• "a causa de una carga de trabajo excepcionalmente elevada en ese período"
+
+SIN PROPONER SUSTITUTO (si la consigna no lo pide):
+"Espero que puedan contar con otros colegas interesados y no dudo en que el curso resultará muy enriquecedor para los participantes."
+
+CON PROPUESTA PARA EL FUTURO:
+"Si el curso se repite en una edición posterior, estaría encantada de considerar mi participación."
+
+NOTA: En el examen siempre encontrarás UNA de estas variantes. Lee bien la consigna para saber si debes proponer sustituto o no.`,
+  },
+
+  // ═══ AGRADECIMIENTO JEFE ═══
+  agradecimiento_jefe: {
+    tag: 'Correo Escrito', tagColor: 'blue',
+    title: 'Correo de agradecimiento al jefe / equipo',
+    desc: 'Respuesta a un mensaje de reconocimiento · Tono cálido y profesional',
+    tabs: [
+      { label: 'Texto modelo', key: 'texto' },
+      { label: 'Consejos', key: 'tips' },
+    ],
+    texto: `En primer lugar, gracias por tus amables palabras y por tomarte el tiempo de dirigirte a todo el departamento.
+
+A lo largo de estos [PERÍODO], el equipo ha demostrado una capacidad de adaptación verdaderamente admirable. Las medidas adoptadas por la sección —como [MEDIDA 1], [MEDIDA 2] y el apoyo constante en la gestión de situaciones personales— han sido fundamentales para que cada uno de nosotros pudiera sobrellevar [SITUACIÓN].
+
+Con vistas a esta nueva etapa, me gustaría proponer algunas ideas con el fin de reforzar nuestro trabajo en equipo. En primer lugar, podríamos instaurar reuniones informales periódicas de carácter mensual, orientadas no tanto a la gestión de tareas como al intercambio de experiencias. Asimismo, sería beneficioso establecer un espacio compartido —ya sea virtual o presencial— donde los miembros del equipo pudieran compartir recursos, buenas prácticas o simplemente expresar inquietudes. Por último, convendría valorar la posibilidad de organizar alguna actividad de team building que nos permita reconectar en un entorno distinto al habitual.
+
+Espero con interés [REUNIÓN/PRÓXIMO PASO], convencida de que nos aportará ideas valiosas sobre cómo podemos afrontar juntos esta nueva etapa.
+
+Saludos cordiales,
+[NOMBRE]`,
+    tips: `✦ Estructura: agradecimiento → reconocimiento del equipo → propuestas → cierre optimista
+✦ Tono: cálido pero profesional; no excesivamente formal
+✦ Propuestas con variedad gramatical:
+   - "podríamos + infinitivo" (condicional)
+   - "sería beneficioso + infinitivo"
+   - "convendría valorar la posibilidad de..."
+   - "con el fin de + infinitivo" (finalidad)
+✦ Evita: "me alegra mucho tu correo", "es genial que..." (demasiado coloquial)
+✦ Usa "sobrellevar" en lugar de "aguantar" o "resistir"`,
+  },
+
+  // ═══ CAMPAÑA / CIRCULAR INTERNA ═══
+  campana_donacion: {
+    tag: 'Circular Interna', tagColor: 'blue',
+    title: 'Campaña / circular de sensibilización interna',
+    desc: 'Texto persuasivo · Llamada a la acción · Registro formal-cálido',
+    tabs: [
+      { label: 'Texto modelo', key: 'texto' },
+      { label: 'Consejos', key: 'tips' },
+    ],
+    texto: `Estimados colegas:
+
+Como probablemente ya saben, [ORGANISMO/INSTITUCIÓN] está llevando a cabo actualmente [NOMBRE DE LA CAMPAÑA]. El objetivo de esta iniciativa es [OBJETIVO PRINCIPAL].
+
+[DATO O ARGUMENTO IMPACTANTE: ¿sabíais que...?]. [DATO 2: quién se beneficia, cómo funciona, qué se requiere del participante]. [DATO 3: aspecto positivo para el participante].
+
+Esta campaña me toca especialmente de cerca porque [CONEXIÓN PERSONAL BREVE, opcional pero efectiva].
+
+Les animo a que [ACCIÓN CONCRETA]. Su participación es fundamental para garantizar el éxito de esta iniciativa, y un gesto tan sencillo como [EJEMPLO CONCRETO] puede marcar una diferencia real.
+
+Para obtener más información o [ACCIÓN], pueden [CONTACTO/ENLACE].
+
+Atentamente,
+[NOMBRE]`,
+    tips: `✦ Estructura: presentación de la campaña → datos clave → conexión personal (opcional) → llamada a la acción → información práctica
+✦ Tono: formal pero cálido; quieres convencer, no ordenar
+✦ Gramática útil:
+   - "Les animo a que + subjuntivo"
+   - "Su participación es fundamental para que + subjuntivo"
+   - "un gesto tan sencillo como + infinitivo puede..."
+✦ Evita el imperativo directo en texto formal; usa subjuntivo o condicional
+✦ Dato: en el examen puede ser donación de sangre, ropa, voluntariado, etc.`,
+  },
+
+  // ═══ VOLUNTARIADO ═══
+  voluntariado: {
+    tag: 'Tarea 2C / Escrita', tagColor: 'green',
+    title: 'Postularse a un proyecto de voluntariado',
+    desc: '150–175 palabras · Carta / correo de candidatura',
+    tabs: [
+      { label: 'Texto modelo', key: 'texto' },
+      { label: 'Frases útiles', key: 'frases' },
+    ],
+    texto: `Asunto: Solicitud de participación — [NOMBRE DEL PROYECTO]
+
+Estimada/o [NOMBRE] / A quien corresponda:
+
+Me dirijo a usted para postularme como voluntaria/o en [PROYECTO]. Creo firmemente que [OBJETIVO DEL PROYECTO] es fundamental para [BENEFICIO O PROBLEMA QUE ABORDA].
+
+Mi interés surge de [EXPERIENCIA PERSONAL O PROFESIONAL BREVE]. Actualmente [ACTIVIDAD RELACIONADA], lo cual me ha permitido desarrollar [COMPETENCIA 1] y [COMPETENCIA 2].
+
+Puedo ofrecer [APORTACIÓN CONCRETA]. Estoy comprometida a [OBJETIVO DEL ROL] y a [VALOR ADICIONAL].
+
+Le agradezco de antemano que considere mi solicitud. Quedo a su disposición para proporcionarle más información sobre mi trayectoria.
+
+Atentamente,
+[NOMBRE]`,
+    frases: `PRESENTAR LA CANDIDATURA:
+• "Me dirijo a usted para postularme como voluntaria/o en..."
+• "Quisiera expresar mi interés en participar en..."
+• "Me complace presentar mi candidatura para..."
+
+JUSTIFICAR EL INTERÉS:
+• "Creo firmemente que [X] es clave para..."
+• "Mi interés surge de [experiencia/motivación]"
+• "Esta experiencia me ha permitido desarrollar..."
+
+DESTACAR COMPETENCIAS:
+• "Puedo ofrecer un enfoque [adjetivo] para..."
+• "Estoy comprometida a [objetivo]"
+• "mi experiencia me preparó para abordar [dificultad] con [actitud]"
+
+CIERRE:
+• "Le agradezco de antemano que considere mi solicitud"
+• "Quedo a su disposición para proporcionar más información"`,
+  },
+
+  // ═══ VACANTE / RESUMEN OFERTA ═══
+  vacante_resumen: {
+    tag: 'Tarea 1A', tagColor: 'blue',
+    title: 'Resumen de oferta de trabajo / convocatoria',
+    desc: 'Texto informativo basado en la oferta real del examen · 225–250 palabras',
+    tabs: [
+      { label: 'Texto modelo (UNOPS)', key: 'texto' },
+      { label: 'Texto modelo (genérico)', key: 'generico' },
+      { label: 'Vocabulario útil', key: 'vocab' },
+    ],
+    texto: `[ORGANISMO/PROGRAMA] convoca una plaza de [PUESTO] destinada a [PERFIL GENERAL]. La organización trabaja en [ÁMBITO] y, a través de esta contratación, busca reforzar su capacidad en [ÁREA ESTRATÉGICA].
+
+La persona seleccionada trabajará en [LUGAR O DE FORMA REMOTA] y será responsable de [FUNCIÓN PRINCIPAL]. Deberá asimismo [FUNCIÓN 2] y [FUNCIÓN 3], en coordinación con [EQUIPOS O UNIDADES].
+
+En cuanto al perfil requerido, se exige [FORMACIÓN] y [NÚMERO] años de experiencia en [ÁREA]. Se valorará especialmente el conocimiento de [TEMA O HERRAMIENTA]. Los candidatos deberán acreditar competencia en [IDIOMA 1], siendo [IDIOMA 2] un activo adicional. El contrato es de [DURACIÓN] y conlleva [CONDICIONES ECONÓMICAS SI APARECEN].
+
+Esta plaza representa una oportunidad para profesionales que deseen contribuir a [MISIÓN DEL ORGANISMO]. Las candidaturas deben enviarse antes del [FECHA] a través de [SISTEMA/MEDIO].`,
+    generico: `PLANTILLA GENÉRICA PARA CUALQUIER CONVOCATORIA:
+
+[ORGANISMO] ha publicado una convocatoria para la plaza de [PUESTO]. La organización, con sede en [LUGAR], desarrolla su labor en el ámbito de [ÁREA] y tiene como misión [OBJETIVO PRINCIPAL].
+
+La persona seleccionada asumirá la responsabilidad de [FUNCIÓN 1] y colaborará estrechamente con [EQUIPO/SEDE]. Además, deberá [FUNCIÓN 2] y velar por [NORMA O ESTÁNDAR].
+
+Se requiere formación en [CAMPO] y al menos [N] años de experiencia en [ÁREA]. Se valorará [COMPETENCIA ADICIONAL]. El dominio del [IDIOMA] es imprescindible y el conocimiento de [OTRO IDIOMA] constituye una ventaja.
+
+La plaza, ubicada en [LUGAR], es de carácter [TEMPORAL/PERMANENTE]. Los interesados pueden obtener más información y presentar su candidatura a través de [ENLACE/SISTEMA] antes del [FECHA].`,
+    vocab: `SUSTANTIVOS:
+• la convocatoria / la plaza / el puesto / la vacante
+• la contratación / la candidatura / el perfil
+• la trayectoria / la formación / los requisitos
+• la supervisión / la coordinación / el mandato
+
+VERBOS PARA DESCRIBIR FUNCIONES:
+• desempeñar / llevar a cabo / asumir / encargarse de
+• coordinar / supervisar / garantizar / velar por
+• contribuir a / reforzar / apoyar / impulsar
+
+VERBOS PARA REQUISITOS:
+• se requiere / se exige / se valorará / se considerará una ventaja
+• acreditar / demostrar / contar con / poseer
+
+FRASES ÚTILES:
+• "La persona seleccionada asumirá la responsabilidad de..."
+• "Esta plaza representa una oportunidad para..."
+• "Los candidatos deberán acreditar competencia en..."`,
+  },
+
+  // ═══ PERFIL DEL CANDIDATO ═══
+  perfil_candidato: {
+    tag: 'Tarea Oral 2', tagColor: 'red',
+    title: 'Describir el perfil del candidato ideal',
+    desc: 'Texto para Tarea Oral 2 · Estructura para 5 minutos de habla',
+    tabs: [
+      { label: 'Texto modelo', key: 'texto' },
+      { label: 'Gramática', key: 'gram' },
+    ],
+    texto: `En nuestra sección buscamos a [PUESTO]. En primer lugar, se requiere [FORMACIÓN] y experiencia en [ÁREA PRINCIPAL]. En cuanto a las competencias técnicas, consideramos fundamental que la persona [COMPETENCIA 1] y que sea capaz de [FUNCIÓN PRINCIPAL].
+
+Además, el puesto exige sólidas habilidades de comunicación, tanto escrita como oral, así como la capacidad de gestionar múltiples prioridades en entornos de trabajo exigentes. El conocimiento de [IDIOMA] es imprescindible, y el dominio de [OTRO IDIOMA] constituiría una ventaja significativa.
+
+Sin embargo, no basta con la experiencia técnica. También es importante que la persona sepa trabajar en equipo, adapte su comunicación a distintos interlocutores y muestre iniciativa ante situaciones imprevistas.
+
+Desde el punto de vista personal, buscamos a alguien que tenga una orientación clara hacia los resultados y que sea capaz de colaborar con colegas de distintas culturas y entornos profesionales.
+
+En definitiva, buscamos a una persona [CUALIDAD 1], [CUALIDAD 2] y [CUALIDAD 3] que pueda contribuir activamente a [OBJETIVO DE LA SECCIÓN].`,
+    gram: `GRAMÁTICA CLAVE EN ESTE TEXTO:
+
+"buscamos a alguien que TENGA..." → SUBJUNTIVO
+(referente no identificado; regla: cuando el antecedente es desconocido o indefinido, el relativo lleva subjuntivo)
+
+"es importante que la persona SEPA..." → SUBJUNTIVO
+(valoración impersonal + que + subjuntivo)
+
+"consideramos fundamental que [ella/él] SEA..." → SUBJUNTIVO
+
+CONDICIONAL DE CORTESÍA:
+"constituiría una ventaja" (no "constituye" — más formal y distante)
+
+CONTRASTE:
+"Sin embargo, no basta con... También es importante que..."
+→ conecta lo técnico con lo personal`,
+  },
+
+  // ═══ GRÁFICOS ═══
+  grafico: {
+    tag: 'Gráficos', tagColor: 'green',
+    title: 'Comentario de gráfico',
+    desc: 'Vocabulario y estructuras para describir datos visuales',
+    tabs: [
+      { label: 'Introducir el gráfico', key: 'intro' },
+      { label: 'Tendencias', key: 'tendencias' },
+      { label: 'Comparar y destacar', key: 'comparar' },
+      { label: 'Texto modelo', key: 'texto' },
+    ],
+    intro: `INTRODUCIR EL GRÁFICO:
+• El gráfico muestra / presenta / ilustra...
+• El gráfico proporciona información sobre...
+• Los datos se refieren a...
+• El gráfico compara...
+• El período analizado abarca de [X] a [Y]
+• Según los datos...
+• A primera vista, se observa que...
+• En términos generales...`,
+    tendencias: `SUBIDAS Y CRECIMIENTO:
+• aumentar / incrementarse / crecer / subir
+• experimentar un aumento / registrar un aumento
+• pasar de X a Y
+• aumentar en un X % / aumentar hasta el X %
+• alcanzar un máximo / un pico
+
+BAJADAS:
+• disminuir / reducirse / descender / bajar / caer
+• experimentar / registrar un descenso
+• disminuir en un X % / alcanzar un mínimo
+
+ESTABILIDAD:
+• mantenerse estable / permanecer prácticamente sin cambios
+• mantenerse en torno a X / estabilizarse en X / fluctuar
+
+INTENSIDAD:
+• ligeramente / gradualmente / de forma constante
+• considerablemente / significativamente / bruscamente`,
+    comparar: `COMPARAR:
+• en comparación con... / frente a...
+• mientras que... / en cambio... / por el contrario...
+• superior / inferior a...
+• más del doble / casi el doble
+• la cifra más alta / más baja
+• representar una proporción mayor / menor
+
+CIFRAS:
+• el porcentaje / la proporción
+• representar / suponer el X %
+• situarse en el X % / aproximadamente / alrededor de
+• algo más de / algo menos de / casi / cerca de
+• una cuarta parte / un tercio / la mitad
+
+DESTACAR:
+• Cabe destacar que...
+• Conviene señalar que...
+• Lo más destacable es que...
+• Se observa una clara tendencia...
+• X registra la cifra más alta / baja.
+
+INTERPRETAR CON PRUDENCIA:
+• Los datos sugieren que...
+• Esto podría indicar que...
+• Cabría preguntarse si...`,
+    texto: `TEXTO MODELO DE COMENTARIO DE GRÁFICO (adaptable):
+
+El gráfico presenta datos sobre [TEMA] durante el período [AÑOS]. En términos generales, se observa una tendencia [GENERAL] a lo largo del período analizado.
+
+En cuanto a las cifras más destacadas, [PAÍS/SECTOR/GRUPO A] registra la cifra más alta, con un [X%], mientras que [PAÍS/SECTOR/GRUPO B] se sitúa en el extremo opuesto, con apenas un [Y%]. Cabe destacar que esta diferencia de [DIFERENCIA] pone de manifiesto [INTERPRETACIÓN].
+
+Por lo que respecta a la evolución temporal, [DATO] experimentó un aumento significativo entre [AÑO 1] y [AÑO 2], pasando de [X] a [Y]. Por el contrario, [OTRO DATO] se mantuvo prácticamente estable en torno a [Z].
+
+En definitiva, los datos sugieren que [CONCLUSIÓN O INTERPRETACIÓN CAUTELOSA]. Esta tendencia podría estar relacionada con [FACTOR EXTERNO], aunque sería necesario disponer de datos adicionales para confirmarlo.`,
+  },
+
+  // ═══ CHECKLIST ═══
+  checklist: {
+    tag: 'Referencia', tagColor: 'blue',
+    title: 'Checklist antes de entregar',
+    desc: '30 segundos antes de pulsar "enviar" en el examen',
+    tabs: [
+      { label: 'Checklist', key: 'lista' },
+      { label: 'Errores frecuentes', key: 'errores' },
+    ],
+    lista: `ANTES DE ENTREGAR — verifica estos 7 puntos:
+
+☐ 1. ¿He respondido a TODOS los puntos de la consigna?
+     (Lee de nuevo la instrucción; es fácil olvidar un punto)
+
+☐ 2. ¿Mi registro corresponde al destinatario?
+     → Usted (formal) / tú (colega según instrucción) / impersonal (circular)
+
+☐ 3. ¿He organizado la respuesta en 3-5 bloques claros?
+     → Introducción / desarrollo / cierre siempre presentes
+
+☐ 4. ¿He usado pocos conectores pero correctamente?
+     → 4-6 bien usados; NO uno en cada frase
+
+☐ 5. ¿He incluido al menos 2 estructuras gramaticales ambiciosas?
+     → opinión + indicativo | valoración + subjuntivo | hipótesis | concesión
+
+☐ 6. ¿He evitado verbos vagos?
+     → hacer → llevar a cabo / realizar / adoptar
+     → tener → contar con / poseer / disponer de
+     → decir → señalar / destacar / subrayar / advertir
+
+☐ 7. ¿He contado las palabras?
+     → Tarea 1: 225-250 | Tarea 2: 150-175
+     → Ni una palabra por encima del máximo`,
+    errores: `ERRORES FRECUENTES POR CALCO DEL INGLÉS / FRANCÉS:
+
+CALCOS FRANCESES:
+✗ "no será disponible" → ✓ no estará disponible
+✗ "proponer de + infinitivo" → ✓ proponer + infinitivo
+✗ "gracias de su comprensión" → ✓ gracias por su comprensión
+✗ "por vuelta de correo" → ✓ a la mayor brevedad posible
+✗ "nos excusamos" → ✓ pedimos disculpas / lamentamos
+
+VERBO + PREPOSICIÓN:
+✗ "gracias para su ayuda" → ✓ gracias por su ayuda
+✗ "necesitar de algo" → ✓ necesitar algo
+✗ "depender en algo" → ✓ depender de algo
+✗ "interesarse en" → ✓ interesarse por
+
+SUBJUNTIVO vs INDICATIVO:
+✓ "Aunque la situación ES difícil" (hecho real → indicativo)
+✓ "Aunque la situación SEA complicada" (hipótesis → subjuntivo)
+✓ "No creo que SEAN suficientes" (negación/duda → subjuntivo)
+✓ "Creo que SON suficientes" (afirmación → indicativo)`,
+  },
+
+  // ═══ GRAMÁTICA CLAVE ═══
+  gramatica: {
+    tag: 'Referencia', tagColor: 'blue',
+    title: 'Estructuras gramaticales clave (ONU III)',
+    desc: 'Lo que el examen siempre evalúa — con ejemplos reutilizables',
+    tabs: [
+      { label: 'Opinión / Valoración', key: 'opinion' },
+      { label: 'Condición / Hipótesis', key: 'condicion' },
+      { label: 'Conectores + modo', key: 'conectores' },
+      { label: 'Tu sistema mínimo', key: 'sistema' },
+    ],
+    opinion: `AFIRMAR (+ indicativo):
+• Considero que esta medida ES necesaria.
+• Creo que los resultados SON insuficientes.
+• Desde mi punto de vista, SE TRATA de una oportunidad.
+
+NEGAR / DUDAR (+ subjuntivo):
+• No creo que esta medida SEA suficiente.
+• No me parece que el enfoque SEA el adecuado.
+• Dudo de que SE PUEDA resolver sin coordinación.
+
+VALORAR (+ subjuntivo):
+• Es fundamental que los Estados ADOPTEN medidas.
+• Es importante que SE GARANTICE la seguridad.
+• Resulta imprescindible que SE REFUERCEN los mecanismos.
+• Sería conveniente que SE REVISARA el sistema.
+
+ACUERDO (+ indicativo / subjuntivo*):
+• Estoy de acuerdo con que los recursos SON insuficientes. [hecho → ind.]
+• Estoy de acuerdo con que SE ADOPTEN medidas urgentes. [acción → subj.]
+• Coincido con la idea de que SE REFUERCEN los mecanismos. [acción → subj.]
+• Comparto la opinión de que la situación ES grave. [hecho → ind.]`,
+    condicion: `HIPÓTESIS PRESENTE/FUTURO (tipo 2):
+• Si se INVIRTIERA más, se PODRÍA mejorar.
+• Si se ADOPTARAN estas medidas, los resultados MEJORARÍAN.
+• De invertirse más recursos, los resultados MEJORARÍAN.
+• De aplicarse este enfoque, SE PODRÍA avanzar más rápido.
+
+CONDICIÓN (con subjuntivo):
+• En caso de que SURJAN problemas, activaremos el plan.
+• Siempre que SE CUMPLAN las condiciones, proporcionaremos apoyo.
+• A condición de que SE GARANTICE la seguridad, se levantará la restricción.
+• A menos que SE RECIBAN garantías, no procederemos.
+
+TEMPORAL (futuro → subjuntivo):
+• Cuando SE LOGRE un acuerdo, comenzará la implementación.
+• En cuanto TENGAMOS más información, les avisaremos.
+• Antes de que la situación SE DETERIORE, debemos actuar.
+• Una vez que SE FIRME el acuerdo, iniciará la ejecución.`,
+    conectores: `ADICIÓN:
+★ además (+ indic.) | asimismo (+ indic.) | por otro lado
+
+CAUSA:
+★ dado que (+ indic.) | ya que (+ indic.) | puesto que
+a raíz de (+ sustantivo) | debido a (+ sustantivo)
+
+CONSECUENCIA:
+★ por lo tanto (+ indic.) | en consecuencia (+ indic.)
+de ahí que (+ SUBJ.) | por consiguiente (+ indic.)
+
+CONTRASTE:
+★ sin embargo | no obstante | si bien (+ indic.)
+aunque (+ indic. = hecho / + subj. = hipótesis)
+
+FINALIDAD:
+★ para que (+ SUBJ.) | a fin de que (+ SUBJ.)
+con el fin de (+ inf.) | con miras a (+ inf.)
+
+CONDICIÓN:
+★ en caso de que (+ SUBJ.) | siempre que (+ SUBJ.)
+a condición de que | a menos que | salvo que
+
+TIEMPO (futuro):
+★ cuando (+ SUBJ.) | en cuanto (+ SUBJ.)
+antes de que (+ SUBJ.) | una vez que (+ SUBJ.)`,
+    sistema: `TU SISTEMA MÍNIMO — 10 piezas que merece la pena automatizar:
+
+FUNCIÓN              → OPCIÓN PRINCIPAL         → ALTERNATIVA
+─────────────────────────────────────────────────────────────
+Orden                → En primer lugar          → Por último
+Añadir               → Además                   → Asimismo
+Contraste            → Sin embargo              → Aunque
+Causa                → Dado que + indic.        → Ya que
+Consecuencia         → Por lo tanto + indic.    → En consecuencia
+Finalidad            → Para que + subj.         → Con el fin de + inf.
+Condición            → En caso de que + subj.   → Siempre que + subj.
+Opinión              → Considero que + indic.   → No creo que + subj.
+Propuesta            → Sería conveniente que + subj.  → Habría que + inf.
+Cierre               → En definitiva            → En resumen
+
+OBJETIVO POR RESPUESTA LARGA:
+1 opinión + 1 valoración (subj.) + 1 condición/hipótesis + 1 concesión
+→ Con esto ya demuestras una gama muy sólida sin forzar nada.`,
+  },
+
+  // ═══ VERBOS CON PREPOSICIÓN ═══
+  verbos_prep: {
+    tag: 'Referencia', tagColor: 'blue',
+    title: 'Verbos con preposición — 93 verbos',
+    desc: 'Orden alfabético · CON · DE · EN · A',
+    tabs: [
+      { label: 'A–F', key: 'af' },
+      { label: 'G–R', key: 'gr' },
+      { label: 'S–Z + ★ Examen', key: 'sz' },
+    ],
+    af: `A
+acceder a           → to agree to / access
+acostumbrarse a     → to get used to
+adaptarse a         → to adapt to
+adentrarse en       → to delve into
+abusar de           → to abuse / take advantage of
+acordarse de        → to remember
+alegrarse de        → to be glad about
+alternar con        → to alternate with
+aprovecharse de     → to take advantage of
+arrepentirse de     → to regret
+arriesgarse a       → to risk
+aspirar a           → to aspire to
+asustarse de        → to be frightened by
+atreverse a         → to dare to
+avisar de           → to warn / notify of
+avergonzarse de     → to be ashamed of
+
+B
+bastar con          → to be enough / suffice with
+
+C
+cansarse de         → to get tired of
+carecer de          → to lack
+casarse con         → to marry
+coincidir con       → to agree / coincide with
+colaborar con       → to collaborate with
+comparar con        → to compare with
+compartir con       → to share with
+comprometerse a     → to commit to
+conformarse con     → to make do with / settle for
+confiar en          → to trust in
+confundir con       → to confuse with
+conectar con        → to connect with
+conectarse a        → to connect to
+consistir en        → to consist of
+contar con          → to count on / have available
+creer en            → to believe in
+cuidar de           → to take care of
+cumplir con         → to fulfil / comply with
+
+D
+darse cuenta de     → to realise
+decidirse a         → to make up one's mind to
+dedicarse a         → to dedicate oneself to
+depender de         → to depend on
+desconfiar de       → to distrust
+despedirse de       → to say goodbye to
+diplomarse en       → to graduate in
+dirigirse a         → to address / head towards
+disfrutar de        → to enjoy
+
+E
+empeñarse en        → to insist on / be determined to
+empezar a           → to start to
+enamorarse de       → to fall in love with
+encargarse de       → to take charge of
+encontrarse con     → to come across / meet
+enfadarse con       → to get angry with
+enfrentarse a       → to face
+enterarse de        → to find out about
+entrometerse en     → to interfere in
+entretenerse con    → to amuse oneself with
+entusiasmarse con   → to get enthusiastic about
+escapar de          → to escape from
+
+F
+fiarse de           → to trust
+fijarse en          → to notice / pay attention to`,
+    gr: `H
+hablar de           → to talk about
+hartarse de         → to get fed up with
+
+I
+incomodarse con     → to feel uncomfortable with
+influir en          → to influence
+informar de         → to inform of / about
+insistir en         → to insist on
+ir a                → to be going to
+
+J
+jugar a             → to play at
+
+L
+llevarse con        → to get along with
+
+M
+morirse de          → to be dying of
+
+N
+negarse a           → to refuse to
+
+O
+olvidarse de        → to forget
+oler a              → to smell of / smack of
+
+P
+participar en       → to participate in
+preferir a          → to prefer to
+preocuparse de      → to worry about / take care of
+presumir de         → to boast of
+
+Q
+quedar en           → to agree to
+quejarse de         → to complain about
+
+R
+reconciliarse con   → to make up with / reconcile with
+recurrir a          → to resort to
+reírse de           → to laugh at
+renegar de          → to disown / go back on
+renunciar a         → to give up / renounce
+resistirse a        → to resist`,
+    sz: `S
+saber a             → to taste of / sound like
+saber de            → to know about
+soñar con           → to dream of / about
+sorprenderse de     → to be surprised by
+
+T
+tardar en           → to take long to / be slow to
+tener ganas de      → to look forward to / feel like
+tratar con          → to deal with
+
+V
+vengarse de         → to take revenge for
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+★ MÁS ÚTILES EN EL EXAMEN ONU III:
+
++ CON
+• coincidir con (la idea de que...)
+• colaborar con (colegas, equipos...)
+• contar con (recursos, apoyo, experiencia...)
+• cumplir con (las obligaciones, el mandato...)
+
++ DE
+• carecer de (recursos, experiencia...)
+• darse cuenta de (la importancia de...)
+• depender de (la financiación, el apoyo...)
+• encargarse de (una tarea, el proyecto...)
+• informar de (los resultados, la situación...)
+
++ EN
+• confiar en (el equipo, el proceso...)
+• consistir en (la propuesta consiste en...)
+• influir en (los resultados, la política...)
+• insistir en (la necesidad de...)
+• participar en (el curso, el proyecto...)
+
++ A
+• adaptarse a (el nuevo entorno, los requisitos...)
+• aspirar a (contribuir, mejorar...)
+• comprometerse a (realizar, apoyar...)
+• dedicarse a (la enseñanza, la investigación...)
+• dirigirse a (el destinatario, la secretaría...)
+• negarse a (participar, aceptar...)
+• recurrir a (otras fuentes, este mecanismo...)`,
+  },
+
+};
+
+// ── Modal logic ───────────────────────────────────────────────────────────
+
+let currentTask = null;
+
+function openTask(id) {
+  const task = TASKS[id];
+  if (!task) return;
+  currentTask = id;
+
+  // Highlight sidebar button
+  document.querySelectorAll('.task-btn').forEach(b => b.classList.remove('active'));
+  const clickedBtns = document.querySelectorAll('.task-btn');
+  clickedBtns.forEach(b => {
+    if (b.getAttribute('onclick') === `openTask('${id}')`) b.classList.add('active');
+  });
+
+  // Set header
+  const tagEl = document.getElementById('modal-tag');
+  tagEl.textContent = task.tag;
+  tagEl.className = 'mh-tag';
+  if (task.tagColor === 'red') tagEl.style.cssText = 'background:#FDEDEC;color:var(--accent2)';
+  else if (task.tagColor === 'green') tagEl.style.cssText = 'background:#EAFAF1;color:var(--accent3)';
+  else tagEl.style.cssText = '';
+
+  document.getElementById('modal-title').textContent = task.title;
+  document.getElementById('modal-desc').textContent = task.desc;
+
+  // Build tabs
+  const tabsEl = document.getElementById('modal-tabs');
+  tabsEl.innerHTML = '';
+  task.tabs.forEach((t, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'tab-btn' + (i === 0 ? ' active' : '');
+    btn.textContent = t.label;
+    btn.onclick = () => switchTab(task, t.key, btn);
+    tabsEl.appendChild(btn);
+  });
+
+  // Show first tab
+  renderTab(task, task.tabs[0].key);
+
+  // Show modal
+  document.getElementById('modal-overlay').hidden = false;
+  document.getElementById('esc-hint').hidden = false;
+  document.getElementById('modal-box').focus();
+}
+
+function switchTab(task, key, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderTab(task, key);
+}
+
+function renderTab(task, key) {
+  const body = document.getElementById('modal-body');
+  const raw = task[key] || '';
+
+  // Highlight [PLACEHOLDERS]
+  const highlighted = raw.replace(/\[([^\]]+)\]/g, '<span class="placeholder">[$1]</span>');
+
+  // Determine if it's a structured reference (checklist/grammar tabs with colons as section markers)
+  const isStructured = raw.includes('\n\n') && raw.split('\n').some(l => l.match(/^[A-ZÁÉÍÓÚ✦☐★✗✓•]/));
+
+  let html = `<div class="copy-row"><button class="copy-btn" onclick="copyText(this, \`${raw.replace(/`/g, '\\`')}\`)">Copiar texto</button></div>`;
+  html += `<div class="text-block">${highlighted}</div>`;
+
+  body.innerHTML = html;
+  body.hidden = false;
+}
+
+function copyText(btn, text) {
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = '✓ Copiado';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copiar texto';
+      btn.classList.remove('copied');
+    }, 1800);
+  }).catch(() => {
+    // Fallback: select the text-block
+    const range = document.createRange();
+    range.selectNode(document.querySelector('.text-block'));
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+  });
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').hidden = true;
+  document.getElementById('esc-hint').hidden = true;
+  document.querySelectorAll('.task-btn').forEach(b => b.classList.remove('active'));
+}
+
+function closeIfBg(e) {
+  if (e.target === document.getElementById('modal-overlay')) closeModal();
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal();
+});
+
+// ── Theme toggle ──────────────────────────────────────────────────────────
+function toggleTheme() {
+  const root = document.documentElement;
+  const cur = root.getAttribute('data-theme');
+  root.setAttribute('data-theme', cur === 'dark' ? 'light' : 'dark');
+}
+
+// ── Restore last-opened task from localStorage ────────────────────────────
+try {
+  const saved = localStorage.getItem('unlpe_last_task');
+  if (saved && TASKS[saved]) {
+    // Don't auto-open on load — just leave welcome screen
+  }
+} catch(e) {}
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/SpanishExam/sw.js').catch(() => {});
+  });
+}
+</script>
+</body>
+</html>
